@@ -1,4 +1,4 @@
-// === ПАРОЛЬ (СМЕНИ НА СВОЙ) ===
+// === ПАРОЛЬ ===
 const CORRECT_PASSWORD = '123456';
 
 // === ЭЛЕМЕНТЫ ===
@@ -9,8 +9,7 @@ const loginBtn = document.getElementById('loginBtn');
 const errorMsg = document.getElementById('errorMsg');
 const logoutBtn = document.getElementById('logoutBtn');
 const playerOverlay = document.getElementById('playerOverlay');
-const videoPlayer = document.getElementById('videoPlayer');
-const videoSource = document.getElementById('videoSource');
+const videoIframe = document.getElementById('videoIframe');
 const closePlayer = document.getElementById('closePlayer');
 
 // === ПРОВЕРКА СЕССИИ ===
@@ -47,30 +46,27 @@ logoutBtn.addEventListener('click', () => {
     location.reload();
 });
 
-// === ПЛЕЕР ===
+// === ПЛЕЕР (IFRAME) ===
 document.querySelectorAll('.playBtn').forEach(btn => {
     btn.addEventListener('click', function(e) {
         e.stopPropagation();
         const card = this.closest('.movie-card');
         const videoUrl = card.dataset.src;
         
-        if (!videoUrl || videoUrl === 'ССЫЛКА_НА_ТВОЕ_ВИДЕО.mp4') {
+        if (!videoUrl || videoUrl === 'ССЫЛКА_НА_ВИДЕО.mp4') {
             alert('⚠️ Ссылка на видео отсутствует. Добавь data-src в карточку.');
             return;
         }
         
-        videoSource.src = videoUrl;
-        videoPlayer.load();
+        videoIframe.src = videoUrl;
         playerOverlay.style.display = 'flex';
-        videoPlayer.play().catch(() => {});
     });
 });
 
 // === ЗАКРЫТЬ ПЛЕЕР ===
 function closePlayerHandler() {
     playerOverlay.style.display = 'none';
-    videoPlayer.pause();
-    videoPlayer.currentTime = 0;
+    videoIframe.src = ''; // Очищаем, чтобы видео остановилось
 }
 
 closePlayer.addEventListener('click', closePlayerHandler);

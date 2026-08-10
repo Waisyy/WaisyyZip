@@ -439,42 +439,60 @@ function openPlayer(videoUrl, titleId, season, episode) {
         videoPlayer.currentTime = savedProgress;
     }
     
-    videoPlayer.play().catch(() => {});
-    
-    // Сохраняем прогресс каждые 3 секунды
-    if (progressInterval) clearInterval(progressInterval);
-    progressInterval = setInterval(() => {
-        if (!videoPlayer.paused) {
-            saveProgress(titleId, season, episode, videoPlayer.currentTime);
-        }
-    }, 3000);
-    
     // Увеличиваем счетчик просмотров при первом запуске
     incrementWatched(titleId);
-}
-
-function closePlayerHandler() {
-    playerOverlay.classList.remove('show');
+    
+    // Запускаем воспроизведение
+    videoPlayer.play().catch((err) => {
+        console.log('Автовоспроизведение заблокировано:', err);
+    });
+    
+    // Сохраняем прогресс каждые 3 секунды
     if (progressInterval) {
         clearInterval(progressInterval);
         progressInterval = null;
     }
-    // Сохраняем финальный прогресс
-    if (currentTitleId && currentSeason && currentEpisode) {
-        saveProgress(currentTitleId, currentSeason, currentEpisode, videoPlayer.currentTime);
-    }
-    videoPlayer.pause();
-    videoPlayer.currentTime = 0;
+    progressInterval = setInterval(() => {
+        if (!videoPlayer.paused && videoPlayer.currentTime > 0) {
+            saveProgress(titleId, season, episode, videoPlayer.currentTime);
+        }
+    }, 3000);
 }
 
+function closePlayerHandler() {
+    // Сохраняем финальный прогресс
+    if (currentTitleId && currentSeason && currentEpisode) {
+        const currentTime = videoPlayer.currentTime || 0;
+        if (currentTime > 0) {
+            saveProgress(currentTitleId, currentSeason, currentEpisode, currentTime);
+        }
+    }
+    
+    // Очищаем интервал
+    if (progressInterval) {
+        clearInterval(progressInterval);
+        progressInterval = null;
+    }
+    
+    // Закрываем плеер
+    playerOverlay.classList.remove('show');
+    videoPlayer.pause();
+    videoPlayer.currentTime = 0;
+    videoSource.src = '';
+    videoPlayer.load();
+}
+
+// Закрытие по кнопке ✕
 closePlayer.addEventListener('click', closePlayerHandler);
 
+// Закрытие по клику на фон
 playerOverlay.addEventListener('click', (e) => {
     if (e.target === playerOverlay) {
         closePlayerHandler();
     }
 });
 
+// Закрытие по Escape
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && playerOverlay.classList.contains('show')) {
         closePlayerHandler();
@@ -483,7 +501,14 @@ document.addEventListener('keydown', (e) => {
 
 // Сохраняем прогресс при закрытии вкладки
 window.addEventListener('beforeunload', () => {
-    if (currentTitleId && currentSeason && currentEpisode) {
+    if (currentTitleId && currentSeason && currentEpisode && !videoPlayer.paused) {
+        saveProgress(currentTitleId, currentSeason, currentEpisode, videoPlayer.currentTime);
+    }
+});
+
+// Дополнительно: сохраняем прогресс при потере фокуса (переключение вкладки)
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden && currentTitleId && currentSeason && currentEpisode && !videoPlayer.paused) {
         saveProgress(currentTitleId, currentSeason, currentEpisode, videoPlayer.currentTime);
     }
 });

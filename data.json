@@ -1,0 +1,20 @@
+{
+  "titles": [
+    {
+      "id": 1,
+      "title": "Во все тяжкие",
+      "type": "сериал",
+      "year": 2008,
+      "poster": "https://avatars.mds.yandex.net/get-kinopoisk-image/1900788/fb35416f-3b0d-4b96-bc65-cf6923f9e329/220x330",
+      "description": "Раскумарчик",
+      "seasons": [
+        {
+          "season": 1,
+          "episodes": [
+            { "number": 1, "title": "Серия 1", "src": "https://mega.nz/file/B4ZE1AAa#BeIrAcSr1qSHmpYfb2eUT5xBjRkE5uk8hlvy8WlscI0" },
+          ]
+        },
+      ]
+    },
+  ]
+}

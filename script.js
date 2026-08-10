@@ -1,23 +1,22 @@
-// === КОНФИГ ===
-const CORRECT_PASSWORD = '123456'; // СМЕНИ НА СВОЙ ПАРОЛЬ!
-const SESSION_KEY = 'animebox_session';
+// === ПАРОЛЬ (СМЕНИ НА СВОЙ) ===
+const CORRECT_PASSWORD = '123456';
 
 // === ЭЛЕМЕНТЫ ===
-const loginOverlay = document.getElementById('login-overlay');
-const mainContent = document.getElementById('main-content');
-const passwordInput = document.getElementById('password-input');
-const loginBtn = document.getElementById('login-btn');
-const errorMsg = document.getElementById('error-message');
-const logoutBtn = document.getElementById('logout-btn');
-const playerOverlay = document.getElementById('player-overlay');
-const videoPlayer = document.getElementById('video-player');
-const videoSource = document.getElementById('video-source');
-const closePlayer = document.getElementById('close-player');
-const playerTitle = document.getElementById('player-title');
+const loginScreen = document.getElementById('loginScreen');
+const mainContent = document.getElementById('mainContent');
+const passwordInput = document.getElementById('passwordInput');
+const loginBtn = document.getElementById('loginBtn');
+const errorMsg = document.getElementById('errorMsg');
+const logoutBtn = document.getElementById('logoutBtn');
+const playerOverlay = document.getElementById('playerOverlay');
+const videoPlayer = document.getElementById('videoPlayer');
+const videoSource = document.getElementById('videoSource');
+const closePlayer = document.getElementById('closePlayer');
 
 // === ПРОВЕРКА СЕССИИ ===
-if (localStorage.getItem(SESSION_KEY) === 'true') {
-    showMainContent();
+if (localStorage.getItem('loggedIn') === 'true') {
+    loginScreen.style.display = 'none';
+    mainContent.style.display = 'block';
 }
 
 // === ВХОД ===
@@ -25,17 +24,15 @@ function handleLogin() {
     const pass = passwordInput.value.trim();
     
     if (pass === CORRECT_PASSWORD) {
-        localStorage.setItem(SESSION_KEY, 'true');
-        showMainContent();
-        errorMsg.classList.add('hidden');
+        localStorage.setItem('loggedIn', 'true');
+        loginScreen.style.display = 'none';
+        mainContent.style.display = 'block';
+        errorMsg.style.display = 'none';
         passwordInput.value = '';
     } else {
-        errorMsg.classList.remove('hidden');
+        errorMsg.style.display = 'block';
         passwordInput.value = '';
         passwordInput.focus();
-        // Анимация тряски
-        passwordInput.style.animation = 'shake 0.3s ease';
-        setTimeout(() => passwordInput.style.animation = '', 300);
     }
 }
 
@@ -46,71 +43,46 @@ passwordInput.addEventListener('keydown', (e) => {
 
 // === ВЫХОД ===
 logoutBtn.addEventListener('click', () => {
-    localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem('loggedIn');
     location.reload();
 });
 
-// === ПОКАЗАТЬ ОСНОВНОЙ КОНТЕНТ ===
-function showMainContent() {
-    loginOverlay.classList.add('hidden');
-    mainContent.classList.add('active');
-}
-
-// === ОТКРЫТЬ ПЛЕЕР ===
-document.querySelectorAll('.play-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
+// === ПЛЕЕР ===
+document.querySelectorAll('.playBtn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
         e.stopPropagation();
-        const card = btn.closest('.movie-card');
+        const card = this.closest('.movie-card');
         const videoUrl = card.dataset.src;
-        const title = card.querySelector('.card-info h4').textContent;
         
-        if (!videoUrl) {
-            alert('⚠️ Ссылка на видео отсутствует. Добавьте data-src в карточку.');
+        if (!videoUrl || videoUrl === 'ССЫЛКА_НА_ТВОЕ_ВИДЕО.mp4') {
+            alert('⚠️ Ссылка на видео отсутствует. Добавь data-src в карточку.');
             return;
         }
         
-        playerTitle.textContent = `▶ ${title}`;
         videoSource.src = videoUrl;
         videoPlayer.load();
-        playerOverlay.classList.remove('hidden');
-        
-        // Автовоспроизведение
-        videoPlayer.play().catch(() => {
-            // Если автоплей заблокирован — ничего страшного
-        });
+        playerOverlay.style.display = 'flex';
+        videoPlayer.play().catch(() => {});
     });
 });
 
 // === ЗАКРЫТЬ ПЛЕЕР ===
 function closePlayerHandler() {
-    playerOverlay.classList.add('hidden');
+    playerOverlay.style.display = 'none';
     videoPlayer.pause();
     videoPlayer.currentTime = 0;
 }
 
 closePlayer.addEventListener('click', closePlayerHandler);
 
-// Закрытие по клику на фон
 playerOverlay.addEventListener('click', (e) => {
     if (e.target === playerOverlay) {
         closePlayerHandler();
     }
 });
 
-// Закрытие по Escape
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !playerOverlay.classList.contains('hidden')) {
+    if (e.key === 'Escape' && playerOverlay.style.display === 'flex') {
         closePlayerHandler();
     }
 });
-
-// === АНИМАЦИЯ ТРЯСКИ (добавляем в CSS) ===
-const style = document.createElement('style');
-style.textContent = `
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    75% { transform: translateX(8px); }
-}
-`;
-document.head.appendChild(style);

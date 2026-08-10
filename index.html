@@ -1,54 +1,125 @@
 <!DOCTYPE html>
-<html lang="ru"> 
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeBox — твоя коллекция</title>
+    <title>AnimeBox — твой кинотеатр</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <!-- ЭКРАН ВХОДА -->
 <div id="loginScreen">
-    <div class="login-box">
-        <h1>🎬 AnimeBox</h1>
-        <p>Введите пароль для доступа</p>
-        <input type="password" id="passwordInput" placeholder="Пароль">
-        <button id="loginBtn">Войти</button>
-        <div id="errorMsg" style="color: #ff4757; margin-top: 12px; display: none;">❌ Неверный пароль</div>
+    <div class="login-box animate-fade-in">
+        <div class="login-logo">🎬</div>
+        <h1>AnimeBox</h1>
+        <p>Введите пароль для доступа к коллекции</p>
+        <input type="password" id="passwordInput" placeholder="Пароль" autofocus>
+        <button id="loginBtn">
+            <span>Войти</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </button>
+        <div id="errorMsg" class="error-msg">❌ Неверный пароль</div>
     </div>
 </div>
 
 <!-- ОСНОВНОЙ КОНТЕНТ -->
-<div id="mainContent" style="display: none;">
+<div id="mainContent">
 
     <!-- ШАПКА -->
-    <header class="header">
+    <header class="header animate-slide-down">
         <div class="logo">🎬 AnimeBox</div>
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Поиск фильмов, сериалов, аниме..." autocomplete="off">
+            <input type="text" id="searchInput" placeholder="Поиск фильмов, сериалов..." autocomplete="off">
             <button id="searchBtn">🔍</button>
         </div>
-        <button id="logoutBtn" class="logout-btn">🚪 Выйти</button>
+        <div class="header-actions">
+            <button id="logoutBtn" class="logout-btn">🚪 Выйти</button>
+        </div>
     </header>
 
-    <!-- РЕЗУЛЬТАТЫ ПОИСКА -->
-    <div id="resultsContainer" class="results-container">
-        <!-- Сюда будут подгружаться результаты через JavaScript -->
+    <!-- КАТЕГОРИИ -->
+    <nav class="categories animate-slide-down" id="categoriesNav">
+        <button class="category-btn active" data-filter="all">🏠 Все</button>
+        <button class="category-btn" data-filter="фильм">🎥 Фильмы</button>
+        <button class="category-btn" data-filter="сериал">📺 Сериалы</button>
+        <button class="category-btn" data-filter="аниме">🌸 Аниме</button>
+        <button class="category-btn" data-filter="продолжить">⏳ Продолжить</button>
+    </nav>
+
+    <!-- КОНТЕЙНЕР ДЛЯ КОНТЕНТА -->
+    <div id="contentContainer">
+
+        <!-- ГЛАВНАЯ СТРАНИЦА -->
+        <div id="homePage" class="page active">
+            
+            <!-- Баннер -->
+            <section class="banner animate-fade-in">
+                <div class="banner-content">
+                    <h2>Добро пожаловать в AnimeBox</h2>
+                    <p>Смотри любимые фильмы и сериалы в отличном качестве</p>
+                </div>
+            </section>
+
+            <!-- Новинки -->
+            <section class="section">
+                <div class="section-header">
+                    <h3>🔥 Новинки</h3>
+                    <span class="section-count" id="newCount">0</span>
+                </div>
+                <div class="results-grid" id="newReleases"></div>
+            </section>
+
+            <!-- Популярное -->
+            <section class="section">
+                <div class="section-header">
+                    <h3>⭐ Популярное</h3>
+                    <span class="section-count" id="popularCount">0</span>
+                </div>
+                <div class="results-grid" id="popularTitles"></div>
+            </section>
+
+            <!-- Продолжить просмотр -->
+            <section class="section" id="continueSection">
+                <div class="section-header">
+                    <h3>⏳ Продолжить просмотр</h3>
+                    <span class="section-count" id="continueCount">0</span>
+                </div>
+                <div class="results-grid" id="continueWatching"></div>
+            </section>
+        </div>
+
+        <!-- СТРАНИЦА РЕЗУЛЬТАТОВ ПОИСКА -->
+        <div id="searchPage" class="page">
+            <div class="section-header">
+                <h3 id="searchTitle">Результаты поиска</h3>
+            </div>
+            <div class="results-grid" id="searchResults"></div>
+        </div>
+
+        <!-- ДЕТАЛИ ТАЙТЛА -->
+        <div id="detailsPage" class="page">
+            <button id="backBtn" class="back-btn animate-hover">← Назад</button>
+            <div id="detailsContent"></div>
+        </div>
     </div>
 
-    <!-- ДЕТАЛИ ТАЙТЛА (список серий) -->
-    <div id="detailsContainer" class="details-container" style="display: none;">
-        <button id="backBtn" class="back-btn">← Назад к результатам</button>
-        <div id="detailsContent"></div>
-    </div>
-
-    <!-- ПЛЕЕР  -->
-    <div id="playerOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; align-items: center; justify-content: center;">
-        <div style="width: 85%; max-width: 900px; position: relative;">
-            <button id="closePlayer" style="position: absolute; top: -45px; right: 0; background: none; border: none; color: white; font-size: 28px; cursor: pointer;">✕</button>
-            <iframe id="videoIframe" src="" style="width: 100%; height: 500px; border: none; border-radius: 12px; background: black;" allowfullscreen allow="autoplay"></iframe>
+    <!-- ПЛЕЕР -->
+    <div id="playerOverlay" class="player-overlay">
+        <div class="player-wrapper animate-scale-up">
+            <div class="player-header">
+                <span id="playerTitle" class="player-title">Сейчас смотрите</span>
+                <button id="closePlayer" class="close-player-btn">✕</button>
+            </div>
+            <video id="videoPlayer" controls>
+                <source id="videoSource" src="">
+            </video>
+            <div class="player-controls-info">
+                <span>⏱️ Прогресс сохраняется автоматически</span>
+            </div>
         </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
 // === ПАРОЛЬ ===
-const CORRECT_PASSWORD = '123456';
+const CORRECT_PASSWORD = '123456'; 
 
 // === ЭЛЕМЕНТЫ ===
 const loginScreen = document.getElementById('loginScreen');

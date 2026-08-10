@@ -2,15 +2,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
     background: #0a0a12;
+    color: #fff;
     min-height: 100vh;
 }
 
-/* ЭКРАН ВХОДА */
+/* === ЭКРАН ВХОДА === */
 #loginScreen {
     position: fixed;
     top: 0;
@@ -26,15 +27,16 @@ body {
 
 .login-box {
     background: #1a1a2e;
-    padding: 40px;
-    border-radius: 20px;
-    width: 360px;
+    padding: 50px 40px;
+    border-radius: 24px;
+    width: 380px;
     text-align: center;
+    box-shadow: 0 20px 60px rgba(108, 99, 255, 0.15);
 }
 
 .login-box h1 {
-    font-size: 30px;
-    margin-bottom: 6px;
+    font-size: 32px;
+    margin-bottom: 8px;
     background: linear-gradient(135deg, #6c63ff, #a855f7);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -42,18 +44,18 @@ body {
 
 .login-box p {
     color: #8888aa;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .login-box input {
     width: 100%;
-    padding: 12px 16px;
+    padding: 14px 18px;
     border: 2px solid #2a2a3e;
-    border-radius: 10px;
+    border-radius: 12px;
     background: #0f0f1a;
-    color: white;
+    color: #fff;
     font-size: 16px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 .login-box input:focus {
@@ -63,38 +65,315 @@ body {
 
 .login-box button {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     background: linear-gradient(135deg, #6c63ff, #7c6dff);
-    color: white;
-    font-size: 17px;
+    color: #fff;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
+    transition: all 0.3s;
 }
 
 .login-box button:hover {
-    transform: scale(1.02);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(108, 99, 255, 0.4);
 }
 
-/* КАРТОЧКИ */
-.movie-card {
-    background: #14141f;
-    padding: 14px;
-    border-radius: 14px;
-    transition: all 0.3s;
+/* === ШАПКА === */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    background: rgba(10, 10, 18, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #6c63ff, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+}
+
+.search-container {
+    display: flex;
+    flex: 1;
+    max-width: 500px;
+    min-width: 200px;
+}
+
+.search-container input {
+    flex: 1;
+    padding: 12px 18px;
+    border: 2px solid #2a2a3e;
+    border-radius: 12px 0 0 12px;
+    background: #0f0f1a;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-container input:focus {
+    border-color: #6c63ff;
+}
+
+.search-container button {
+    padding: 12px 18px;
+    border: 2px solid #2a2a3e;
+    border-left: none;
+    border-radius: 0 12px 12px 0;
+    background: #1a1a2e;
+    color: #fff;
     cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s;
 }
 
-.movie-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(108, 99, 255, 0.2);
+.search-container button:hover {
+    background: #2a2a3e;
 }
 
-.movie-card h4 {
-    color: white;
+.logout-btn {
+    background: rgba(255, 71, 87, 0.15);
+    border: 1px solid rgba(255, 71, 87, 0.2);
+    padding: 10px 24px;
+    border-radius: 12px;
+    color: #ff4757;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
 }
 
-.playBtn:hover {
-    background: #7c6dff !important;
+.logout-btn:hover {
+    background: rgba(255, 71, 87, 0.25);
+}
+
+/* === РЕЗУЛЬТАТЫ === */
+.results-container {
+    padding: 30px 40px;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 24px;
+}
+
+.result-card {
+    background: #14141f;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+}
+
+.result-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(108, 99, 255, 0.3);
+    box-shadow: 0 12px 40px rgba(108, 99, 255, 0.15);
+}
+
+.result-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+
+.result-card .info {
+    padding: 14px 16px 16px;
+}
+
+.result-card .info h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.result-card .info .meta {
+    font-size: 13px;
+    color: #8888aa;
+    display: flex;
+    gap: 12px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: #8888aa;
+    font-size: 18px;
+}
+
+.no-results span {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 16px;
+}
+
+/* === ДЕТАЛИ (список серий) === */
+.details-container {
+    padding: 30px 40px;
+    display: none;
+}
+
+.details-container.active {
+    display: block;
+}
+
+.back-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 24px;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 24px;
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.detail-header {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.detail-header img {
+    width: 200px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.detail-header .info {
+    flex: 1;
+}
+
+.detail-header .info h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.detail-header .info .meta {
+    color: #8888aa;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.detail-header .info .description {
+    color: #ccc;
+    line-height: 1.6;
+}
+
+.season-block {
+    margin-bottom: 24px;
+}
+
+.season-block h3 {
+    font-size: 18px;
+    color: #6c63ff;
+    margin-bottom: 12px;
+}
+
+.episode-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #14141f;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.episode-item:hover {
+    background: #1e1e32;
+    padding-left: 20px;
+}
+
+.episode-item .ep-number {
+    color: #6c63ff;
+    font-weight: 600;
+    margin-right: 12px;
+}
+
+.episode-item .ep-title {
+    flex: 1;
+}
+
+.episode-item .play-ep-btn {
+    background: #6c63ff;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.episode-item .play-ep-btn:hover {
+    background: #5a52e0;
+}
+
+/* === АДАПТИВ === */
+@media (max-width: 768px) {
+    .header {
+        padding: 14px 20px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-container {
+        max-width: 100%;
+    }
+    
+    .results-container {
+        padding: 20px;
+    }
+    
+    .results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 16px;
+    }
+    
+    .result-card img {
+        height: 200px;
+    }
+    
+    .details-container {
+        padding: 20px;
+    }
+    
+    .detail-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .detail-header img {
+        width: 150px;
+    }
+    
+    .login-box {
+        width: 90%;
+        padding: 32px 24px;
+    }
 }

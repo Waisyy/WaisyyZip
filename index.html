@@ -3,102 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeBox — твоя коллекция</title>
+    <title>AnimeBox</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <!-- ЭКРАН ВХОДА -->
-<div id="login-overlay" class="login-overlay">
-    <div class="login-card">
-        <div class="login-logo">🎬</div>
-        <h1 class="login-title">Доступ к коллекции</h1>
-        <p class="login-sub">Введите пароль, чтобы смотреть фильмы и аниме</p>
-        
-        <div class="login-input-group">
-            <input type="password" id="password-input" placeholder="Введите пароль" autofocus>
-            <button id="login-btn">
-                <span>Войти</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </button>
-        </div>
-        
-        <p id="error-message" class="error-message hidden">❌ Неверный пароль. Попробуйте снова.</p>
+<div id="loginScreen">
+    <div class="login-box">
+        <h1>🎬 AnimeBox</h1>
+        <p>Введите пароль</p>
+        <input type="password" id="passwordInput" placeholder="Пароль">
+        <button id="loginBtn">Войти</button>
+        <div id="errorMsg" style="color: #ff4757; margin-top: 12px; display: none;">Неверный пароль</div>
     </div>
 </div>
 
 <!-- ОСНОВНОЙ КОНТЕНТ -->
-<div id="main-content" class="main-content hidden">
-
-    <!-- ШАПКА -->
-    <header class="header">
-        <div class="header-left">
-            <div class="logo">🎬 AnimeBox</div>
-            <nav class="nav">
-                <a href="#" class="nav-link active">Все</a>
-                <a href="#" class="nav-link">Аниме</a>
-                <a href="#" class="nav-link">Фильмы</a>
-                <a href="#" class="nav-link">Сериалы</a>
-            </nav>
-        </div>
-        <div class="header-right">
-            <button id="logout-btn" class="logout-btn">🚪 Выйти</button>
-        </div>
-    </header>
-
-    <!-- БАННЕР -->
-    <section class="banner">
-        <div class="banner-content">
-            <h2>Добро пожаловать!</h2>
-            <p>Смотри любимые фильмы и аниме в отличном качестве</p>
-        </div>
-    </section>
-
-    <!-- ГАЛЕРЕЯ -->
-    <section class="gallery-section">
-        <div class="section-header">
-            <h3>🔥 Популярное</h3>
-            <span class="count">12 фильмов</span>
+<div id="mainContent" style="display: none; padding: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; background: #1a1a2e; padding: 16px 24px; border-radius: 12px;">
+        <h1 style="color: #6c63ff;">🎬 AnimeBox</h1>
+        <button id="logoutBtn" style="background: #ff4757; border: none; padding: 8px 20px; border-radius: 8px; color: white; font-weight: bold; cursor: pointer;">Выйти</button>
+    </div>
+    
+    <h2 style="color: white; margin-top: 30px;">🔥 Моя коллекция</h2>
+    
+    <div id="gallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+        
+        <!-- КАРТОЧКА 1 -->
+        <div class="movie-card" data-src="https://1024terabox.com/s/191Dg29EaIPBUu8vqzf-E-w">
+            <img src="https://1024terabox.com/s/1xWT6oP7Z6Ib-hXghyAad_w" style="width: 100%; border-radius: 12px;">
+            <h4 style="color: white; margin: 10px 0 6px;">Тестовое видео</h4>
+            <button class="playBtn" style="width: 100%; padding: 10px; background: #6c63ff; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer;">▶ Смотреть</button>
         </div>
         
-        <div class="gallery" id="gallery">
-            <!-- КАРТОЧКА ФИЛЬМА (шаблон) -->
-            <div class="movie-card" data-src="https://1024terabox.com/s/10-m_MA5txJTTt5NMf-vVsw">
-                <div class="card-image">
-                    <img src="https://1024terabox.com/s/1ln6GhxsyXOP9TXZ4nCP-zg" alt="Постер">
-                    <div class="card-overlay">
-                        <button class="play-btn">▶ Смотреть</button>
-                    </div>
-                </div>
-                <div class="card-info">
-                    <h4>Название фильма</h4>
-                    <div class="card-meta">
-                        <span class="year">2024</span>
-                        <span class="rating">⭐ 8.5</span>
-                        <span class="type">Аниме</span>
-                    </div>
-                </div>
-            </div>
+    </div>
+</div>
 
-            <!-- ДОБАВЬ СТОЛЬКО КАРТОЧЕК, СКОЛЬКО НУЖНО -->
-            <!-- Просто копируй блок выше и меняй данные -->
-        </div>
-    </section>
-
-    <!-- ПЛЕЕР (оверлей) -->
-    <div id="player-overlay" class="player-overlay hidden">
-        <div class="player-wrapper">
-            <div class="player-header">
-                <span id="player-title" class="player-title">Сейчас смотрите</span>
-                <button id="close-player" class="close-player-btn">✕</button>
-            </div>
-            <video id="video-player" controls>
-                <source id="video-source" src="" type="video/mp4">
-            </video>
-        </div>
+<!-- ПЛЕЕР -->
+<div id="playerOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; align-items: center; justify-content: center;">
+    <div style="width: 85%; max-width: 900px; position: relative;">
+        <button id="closePlayer" style="position: absolute; top: -45px; right: 0; background: none; border: none; color: white; font-size: 28px; cursor: pointer;">✕</button>
+        <video id="videoPlayer" controls style="width: 100%; border-radius: 12px; background: black;">
+            <source id="videoSource" src="">
+        </video>
     </div>
 </div>
 

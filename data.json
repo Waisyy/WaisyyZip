@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "Во все тяжкие",
-      "type": "сериал",
+      "type": "C  ериал",
       "year": 2008,
       "poster": "https://avatars.mds.yandex.net/get-kinopoisk-image/1900788/fb35416f-3b0d-4b96-bc65-cf6923f9e329/220x330",
       "description": "Раскумарчик",
@@ -13,8 +13,23 @@
           "episodes": [
             {
               "number": 1,
-              "title": "Серия 1",
+              "title": "Pilot",
               "src": "https://mega.nz/embed/B4ZE1AAa#BeIrAcSr1qSHmpYfb2eUT5xBjRkE5uk8hlvy8WlscI0"
+            },
+            {
+              "number": 2,
+              "title": "Cat's in the Bag...",
+              "src": ""
+            },
+            {
+              "number": 3,
+              "title": "...and the Bag's in the River",
+              "src": ""
+            },
+            {
+              "number": 4,
+              "title": "Cancer Man",
+              "src": ""
             }
           ]
         }

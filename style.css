@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+    background: #0a0a12;
+    color: #fff;
+    min-height: 100vh;
+}
+
+/* Экраны */
+.screen {
+    display: none;
+    min-height: 100vh;
+}
+.screen.active {
+    display: block;
+}
+
+/* Окно входа */
+#login-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0a0a12;
+}
+.login-box {
+    background: #1a1a2e;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    width: 360px;
+    box-shadow: 0 0 40px rgba(0, 150, 255, 0.15);
+}
+.login-box input {
+    width: 100%;
+    padding: 14px;
+    margin: 20px 0;
+    border: 1px solid #333;
+    border-radius: 12px;
+    background: #12121e;
+    color: #fff;
+    font-size: 16px;
+}
+.login-box button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #6c63ff;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.login-box button:hover {
+    background: #5a52e0;
+}
+#error-message {
+    color: #ff4757;
+    margin-top: 12px;
+}
+.hidden {
+    display: none;
+}
+
+/* Шапка */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: #11111f;
+    border-bottom: 1px solid #2a2a3e;
+}
+#logout-btn {
+    background: #ff4757;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Галерея */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 28px;
+    padding: 30px 40px;
+}
+.movie-card {
+    background: #16162a;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+.movie-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+}
+.movie-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+.movie-title {
+    padding: 12px 14px 6px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.play-btn {
+    margin: 0 14px 14px;
+    padding: 8px;
+    width: calc(100% - 28px);
+    background: #6c63ff;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+.play-btn:hover {
+    background: #5a52e0;
+}
+
+/* Плеер (оверлей) */
+#player-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+#player-overlay.hidden {
+    display: none;
+}
+.player-container {
+    position: relative;
+    width: 80%;
+    max-width: 1000px;
+}
+#close-player {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+}
+#video-player {
+    width: 100%;
+    border-radius: 16px;
+    background: #000;
+}

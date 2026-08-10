@@ -18,6 +18,7 @@ const playerOverlay = document.getElementById('playerOverlay');
 const videoPlayer = document.getElementById('videoPlayer');
 const videoSource = document.getElementById('videoSource');
 const closePlayer = document.getElementById('closePlayer');
+const videoIframe = document.getElementById('videoIframe');
 
 // === ДАННЫЕ ===
 let allTitles = []; // Будет загружено из data.json
@@ -211,20 +212,17 @@ backBtn.addEventListener('click', () => {
 // === ПЛЕЕР ===
 function openPlayer(videoUrl) {
     if (!videoUrl || videoUrl === 'ССЫЛКА_НА_ВИДЕО_В_MEGA') {
-        alert('⚠️ Ссылка на видео отсутствует. Добавь src в data.json.');
+        alert('⚠️ Ссылка на видео отсутствует.');
         return;
     }
-    
-    videoSource.src = videoUrl;
-    videoPlayer.load();
+
+    videoIframe.src = videoUrl;
     playerOverlay.style.display = 'flex';
-    videoPlayer.play().catch(() => {});
 }
 
 function closePlayerHandler() {
     playerOverlay.style.display = 'none';
-    videoPlayer.pause();
-    videoPlayer.currentTime = 0;
+    videoIframe.src = ''; // Очищаем, чтобы видео остановилось
 }
 
 closePlayer.addEventListener('click', closePlayerHandler);
@@ -240,3 +238,4 @@ document.addEventListener('keydown', (e) => {
         closePlayerHandler();
     }
 });
+

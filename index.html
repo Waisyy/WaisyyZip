@@ -3,46 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя кинотека</title>
+    <title>AnimeBox — твоя коллекция</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="login-screen" class="screen active">
-        <div class="login-box">
-            <h1>🔒 Введите пароль</h1>
-            <input type="password" id="password-input" placeholder="Пароль">
-            <button id="login-btn">Войти</button>
-            <p id="error-message" class="hidden">Неверный пароль</p>
+
+<!-- ЭКРАН ВХОДА -->
+<div id="login-overlay" class="login-overlay">
+    <div class="login-card">
+        <div class="login-logo">🎬</div>
+        <h1 class="login-title">Доступ к коллекции</h1>
+        <p class="login-sub">Введите пароль, чтобы смотреть фильмы и аниме</p>
+        
+        <div class="login-input-group">
+            <input type="password" id="password-input" placeholder="Введите пароль" autofocus>
+            <button id="login-btn">
+                <span>Войти</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </button>
         </div>
+        
+        <p id="error-message" class="error-message hidden">❌ Неверный пароль. Попробуйте снова.</p>
     </div>
+</div>
 
-    <div id="main-screen" class="screen">
-        <div class="header">
-            <h1>🎬 Моя коллекция</h1>
-            <button id="logout-btn">Выйти</button>
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<div id="main-content" class="main-content hidden">
+
+    <!-- ШАПКА -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">🎬 AnimeBox</div>
+            <nav class="nav">
+                <a href="#" class="nav-link active">Все</a>
+                <a href="#" class="nav-link">Аниме</a>
+                <a href="#" class="nav-link">Фильмы</a>
+                <a href="#" class="nav-link">Сериалы</a>
+            </nav>
         </div>
+        <div class="header-right">
+            <button id="logout-btn" class="logout-btn">🚪 Выйти</button>
+        </div>
+    </header>
 
-        <!-- Сетка с фильмами -->
+    <!-- БАННЕР -->
+    <section class="banner">
+        <div class="banner-content">
+            <h2>Добро пожаловать!</h2>
+            <p>Смотри любимые фильмы и аниме в отличном качестве</p>
+        </div>
+    </section>
+
+    <!-- ГАЛЕРЕЯ -->
+    <section class="gallery-section">
+        <div class="section-header">
+            <h3>🔥 Популярное</h3>
+            <span class="count">12 фильмов</span>
+        </div>
+        
         <div class="gallery" id="gallery">
-            <!-- Карточка фильма -->
-            <div class="movie-card" data-src="https://example.com/video1.mp4">
-                <img src="https://via.placeholder.com/300x450/1a1a2e/white?text=Аниме+1" alt="Постер">
-                <div class="movie-title">Название фильма</div>
-                <button class="play-btn">▶ Смотреть</button>
+            <!-- КАРТОЧКА ФИЛЬМА (шаблон) -->
+            <div class="movie-card" data-src="https://terabox.com/your-video-link-1.mp4">
+                <div class="card-image">
+                    <img src="https://via.placeholder.com/300x450/1a1a2e/6c63ff?text=Аниме+1" alt="Постер">
+                    <div class="card-overlay">
+                        <button class="play-btn">▶ Смотреть</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <h4>Название фильма</h4>
+                    <div class="card-meta">
+                        <span class="year">2024</span>
+                        <span class="rating">⭐ 8.5</span>
+                        <span class="type">Аниме</span>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <!-- ПЛЕЕР -->
-        <div id="player-overlay" class="hidden">
-            <div class="player-container">
-                <button id="close-player">✕</button>
-                <video id="video-player" controls>
-                    <source id="video-source" src="" type="video/mp4">
-                </video>
+            <!-- ДОБАВЬ СТОЛЬКО КАРТОЧЕК, СКОЛЬКО НУЖНО -->
+            <!-- Просто копируй блок выше и меняй данные -->
+        </div>
+    </section>
+
+    <!-- ПЛЕЕР (оверлей) -->
+    <div id="player-overlay" class="player-overlay hidden">
+        <div class="player-wrapper">
+            <div class="player-header">
+                <span id="player-title" class="player-title">Сейчас смотрите</span>
+                <button id="close-player" class="close-player-btn">✕</button>
             </div>
+            <video id="video-player" controls>
+                <source id="video-source" src="" type="video/mp4">
+            </video>
         </div>
     </div>
+</div>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

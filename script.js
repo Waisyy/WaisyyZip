@@ -30,6 +30,7 @@ let currentFilter = 'all';
 let currentTitleId = null;
 let currentSeason = null;
 let currentEpisode = null;
+let progressInterval = null; // <--- ОБЪЯВЛЯЕМ ЗДЕСЬ В ГЛОБАЛЬНОЙ ОБЛАСТИ
 
 // === КЛЮЧИ ДЛЯ ХРАНЕНИЯ ===
 const PROGRESS_KEY = 'animebox_progress';

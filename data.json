@@ -11,9 +11,13 @@
         {
           "season": 1,
           "episodes": [
-            { "number": 1, "title": "Серия 1", "src": "https://mega.nz/file/B4ZE1AAa#BeIrAcSr1qSHmpYfb2eUT5xBjRkE5uk8hlvy8WlscI0" },
+            {
+              "number": 1,
+              "title": "Серия 1",
+              "src": "https://mega.nz/file/B4ZE1AAa#BeIrAcSr1qSHmpYfb2eUT5xBjRkE5uk8hlvy8WlscI0"
+            }
           ]
-        },
+        }
       ]
     }
   ]
